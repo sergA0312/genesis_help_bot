@@ -1,22 +1,19 @@
 FROM python:3.10-slim
 
-# Установка зависимостей системы (для aiohttp и т.п.)
+WORKDIR /app
+
+# Установка системных зависимостей
 RUN apt-get update && apt-get install -y \
     gcc \
     libffi-dev \
     libssl-dev \
+    sqlite3 \
     && rm -rf /var/lib/apt/lists/*
 
-# Создание виртуального окружения
-ENV VIRTUAL_ENV=/opt/venv
-RUN python -m venv $VIRTUAL_ENV
-ENV PATH="$VIRTUAL_ENV/bin:$PATH"
-
-# Копирование проекта
-WORKDIR /app
+# Копирование файлов
 COPY . .
 
-# Установка зависимостей
+# Установка зависимостей Python
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Запуск бота

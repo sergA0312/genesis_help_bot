@@ -1,3 +1,8 @@
+import os
+# Для Railway и SQLite
+if 'RAILWAY_ENVIRONMENT' in os.environ:
+    os.chdir('/data')  # Персистентное хранилище
+    print("Running on Railway, changed working directory to /data")
 import sqlite3
 import logging
 from aiogram import Bot, Dispatcher, executor, types
